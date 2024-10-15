@@ -10,10 +10,16 @@ const state = {
     },
     values: {
         timerId: null,
+        countDownTimerId: setInterval(countDown, 1000),
         gameVelocity: 1000,
         hitPosition: 0,
         result: 0,
+        currentTime: 60,
     },
+    // actions: {
+    //     timerId: setInterval(randomSquare, 1000),
+    //     countDownTimerId: setInterval(countDown, 1000),
+    // },
 };
 
 function randomSquare(){
@@ -41,6 +47,17 @@ function addListenerHitBox(){
             }
         })
     })
+}
+
+function countDown(){
+    state.values.currentTime--;
+    state.view.timeLeft.textContent = state.values.currentTime;
+
+    if(state.values.currentTime <= 0){
+        clearInterval(state.values.countDownTimerId);
+        clearInterval(state.values.timerId);        
+        alert("Game Over! O seu resultado foi: " + state.values.result);
+    }
 }
 
 
